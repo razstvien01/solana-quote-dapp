@@ -134,29 +134,30 @@ export const Dashboard = () => {
               <div className="flex flex-col space-y-4 mr-10">
                 {" "}
                 {/* This ensures vertical stacking with some space between each post */}
-                {posts.map((item) => {
-                  return (
-                    <article
-                      className="post__card-2 w-full rounded-md border mb-4" // Adjusted classes here
-                      onClick={() => {
-                        // handle click
-                      }}
-                      key={item.account.id}
-                    >
-                      <div className="post__card_-2 p-6">
-                        {" "}
-                        {/* Added padding */}
-                        <blockquote className="mt-6 border-l-4 pl-4 italic text-3xl">
-                          {`"${item.account.content}"`}
-                        </blockquote>
-                        <p className="-mt-2 pl-4 pt-10">
-                          - {item.account.title}
-                        </p>{" "}
-                        {/* Adjusted classes here */}
-                      </div>
-                    </article>
-                  );
-                })}
+                {posts
+                  .map((item, index) => {
+                    return (
+                      <article
+                        className="post__card-2 w-full rounded-md border mb-4" // Adjusted classes here
+                        onClick={() => {
+                          // handle click
+                        }}
+                        key={index}
+                      >
+                        <div className="post__card_-2 p-6">
+                          {" "}
+                          {/* Added padding */}
+                          <blockquote className="mt-6 border-l-4 pl-4 italic text-3xl">
+                            {`"${item.account.content}"`}
+                          </blockquote>
+                          <p className="-mt-2 pl-4 pt-10">
+                            - {item.account.title}
+                          </p>{" "}
+                          {/* Adjusted classes here */}
+                        </div>
+                      </article>
+                    );
+                  })}
               </div>
             </div>
           ) : null}
