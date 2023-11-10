@@ -19,6 +19,7 @@ body {
   padding: 0;
   font-family: Roobert-Medium;
   color: #e9e4e9;
+  /* background-color: #000; */
 }
 a {
   text-decoration: none !important;
@@ -289,3 +290,9 @@ a {
     margin-bottom: 0.7em;
   }
 }
+
+.all__posts-container {
+  height: 700px; /* Set your desired height here */
+  overflow-y: scroll;
+  width: 1000px;
+ }
