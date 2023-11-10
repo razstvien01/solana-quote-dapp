@@ -28,6 +28,10 @@ export const Dashboard = () => {
     setConnecting(true);
     select(PhantomWalletName);
   };
+  
+  console.log(user)
+  
+  console.log(publicKey?.toBase58())
 
   const handleDisconnect = () => {
     localStorage.removeItem("connectedWallet");
@@ -172,7 +176,7 @@ export const Dashboard = () => {
                 <h2 className="font-semibold text-lg ">Public Key:</h2>
               </div>
               <div>
-                <h3 className="">{publicKey.toBase58()}</h3>
+                <h3 className="">{publicKey?.toBase58()}</h3>
               </div>
               <div>
                 <h2 className="font-semibold text-lg ">Balance:</h2>

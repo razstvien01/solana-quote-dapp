@@ -37,7 +37,7 @@ export const BlogProvider = ({ children }) => {
 
   const anchorWallet = useAnchorWallet();
   const { connection } = useConnection();
-  const { publicKey, disconnect } = useWallet()
+  const { publicKey } = useWallet()
 
   const program = useMemo(() => {
     if (anchorWallet) {
@@ -51,13 +51,19 @@ export const BlogProvider = ({ children }) => {
     const start = async () => {
       if (program && publicKey) {
         try {
-          const [userPda] = await findProgramAddressSync([utf8.encode('user'), publicKey.toBuffer()], program.programId)
+          
+          const [userPda] = await findProgramAddressSync([utf8.encode('user'), publicKey?.toBuffer()], program.programId)
           const user = await program.account.userAccount.fetch(userPda)
+          
+          console.log('user:', user)
+          
           if (user) {
+            console.log('INITIALIZED POSTS')
             setInitialized(true)
             setUser(user)
             setLastPostId(user.lastPostId)
             const postAccounts = await program.account.postAccount.all(publicKey.toString())
+            console.log('postAccounts:', postAccounts)
             setPosts(postAccounts)
           }
         } catch (error) {
@@ -76,7 +82,7 @@ export const BlogProvider = ({ children }) => {
     if (program && publicKey) {
       try {
         setTransactionPending(true)
-        const [userPda] = findProgramAddressSync([utf8.encode('user'), publicKey.toBuffer()], program.programId)
+        const [userPda] = findProgramAddressSync([utf8.encode('user'), publicKey.toBytes()], program.programId)
         const name = getRandomName();
         const avatar = getAvatarUrl(name);
 
@@ -101,8 +107,8 @@ export const BlogProvider = ({ children }) => {
     if (program && publicKey) {
       setTransactionPending(true)
       try {
-        const [userPda] = findProgramAddressSync([utf8.encode('user'), publicKey.toBuffer()], program.programId)
-        const [postPda] = findProgramAddressSync([utf8.encode('post'), publicKey.toBuffer(), Uint8Array.from([lastPostId])], program.programId)
+        const [userPda] = findProgramAddressSync([utf8.encode('user'), publicKey.toBytes()], program.programId)
+        const [postPda] = findProgramAddressSync([utf8.encode('post'), publicKey.toBytes(), Uint8Array.from([lastPostId])], program.programId)
 
         await program.methods
           .createPost(title, content)
