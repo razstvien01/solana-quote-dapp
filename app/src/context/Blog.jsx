@@ -37,7 +37,7 @@ export const BlogProvider = ({ children }) => {
 
   const anchorWallet = useAnchorWallet();
   const { connection } = useConnection();
-  const { publicKey } = useWallet()
+  const { publicKey, disconnect } = useWallet()
 
   const program = useMemo(() => {
     if (anchorWallet) {
@@ -45,7 +45,7 @@ export const BlogProvider = ({ children }) => {
       return new anchor.Program(idl, PROGRAM_KEY, provider)
     }
   }, [connection, anchorWallet])
-
+  
   useEffect(() => {
 
     const start = async () => {
